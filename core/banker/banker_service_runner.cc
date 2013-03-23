@@ -52,19 +52,16 @@ int main(int argc, char ** argv)
         .add(configuration_options);
     all_opt.add_options()
         ("help,h", "print this message");
-    
+
     variables_map vm;
-    store(command_line_parser(argc, argv)
-          .options(all_opt)
-          //.positional(p)
-          .run(),
-          vm);
-    notify(vm);
+    store(command_line_parser(argc, argv).options(all_opt).run(), vm);
 
     if (vm.count("help")) {
         cerr << all_opt << endl;
         exit(1);
     }
+
+    notify(vm);
 
     auto proxies = serviceArgs.makeServiceProxies();
 
